@@ -1,9 +1,9 @@
 package writer
 
 import (
+	"bytes"
 	"errors"
 	"io"
-	"sort"
 )
 
 var ErrNotMux = errors.New("io.Writer it's not of type mux")
@@ -24,22 +24,15 @@ func NewDemux(w io.ReadWriter) (*Demux, error) {
 }
 
 func (d *Demux) Keys() []string {
-	keys := make([]string, 0)
-
-	for k := range d.mux.buffers {
-		keys = append(keys, k)
-	}
-
-	sort.Strings(keys)
-
-	return keys
+	return d.mux.keys
 }
 
 func (d *Demux) Read(k string) io.Reader {
-	buff, ok := d.mux.buffers[k]
-	if !ok {
+	if _, ok := d.mux.index[k]; !ok {
 		return nil
 	}
 
-	return buff
+	//return buff
+	pos := d.mux.index[k]
+	return bytes.NewReader(d.mux.bytes[pos[0]:pos[1]])
 }

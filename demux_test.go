@@ -35,7 +35,7 @@ func TestDemuxKeys(t *testing.T) {
 		writer.Write(m, "key1", []byte("my-content"))
 		writer.Write(m, "key3", []byte("my-content3"))
 
-		assert.Equal(t, []string{"key1", "key2", "key3"}, dm.Keys())
+		assert.Equal(t, []string{"key2", "key1", "key3"}, dm.Keys())
 	})
 }
 
