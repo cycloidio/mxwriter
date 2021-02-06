@@ -13,8 +13,6 @@ var ErrWriter = errors.New("invalid write format")
 
 // It's not thread safe
 type mux struct {
-	//buffers map[string]*bytes.Buffer
-
 	// All the content
 	bytes  []byte
 	buffer *bytes.Buffer
@@ -26,7 +24,6 @@ type mux struct {
 
 func NewMux() io.ReadWriter {
 	return &mux{
-		//buffers: make(map[string]*bytes.Buffer),
 		index: make(map[string][]int),
 		keys:  make([]string, 0),
 		bytes: make([]byte, 0),
