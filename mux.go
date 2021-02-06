@@ -44,7 +44,11 @@ func (w *mux) Write(p []byte) (int, error) {
 	p = p[lenidx+l+1:]
 
 	if pos, ok := w.index[key]; ok {
+		// extending cap to the
+		//w.bytes = w.bytes[:len(w.bytes)+len(p)]
+
 		w.bytes = append(w.bytes[:pos[1]], append(p, w.bytes[pos[1]:]...)...)
+		//copy(w.bytes[pos[1]:], append(p, w.bytes[pos[1]:]...))
 		pos[1] += len(p)
 		w.index[key] = pos
 		found := true
