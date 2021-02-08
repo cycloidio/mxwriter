@@ -1,6 +1,13 @@
 # Writer
 
-Write is a small library that emulates a Multiplexer and Demultiplexer for `io.Write`
+Write is a small library that emulates a Multiplexer and Demultiplexer for `io.Write`.
+
+The main goal is to be able to use one `io.Writer` to write different content and then
+be able to read that content separately or all together without having to worry on the
+order of the writes or how many different ones you have.
+
+The Use Case is when you only have 1 `io.Writer` and want to write different things
+(files for example) into it so then you can read them aggregated.
 
 ## Install
 
