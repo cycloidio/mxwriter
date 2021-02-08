@@ -1,5 +1,7 @@
 # Writer
 
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/cycloidio/writer)](https://pkg.go.dev/github.com/cycloidio/writer)
+
 Write is a small library that emulates a Multiplexer and Demultiplexer for `io.Write`.
 
 The main goal is to be able to use one `io.Writer` to write different content and then
@@ -35,7 +37,7 @@ import (
 
 func main() {
   // Initializes the Mux
-	m := writer.NewMux()
+  m := writer.NewMux()
 
   // Initializes the Demux
   dm, err := writer.NewDemux(m)
