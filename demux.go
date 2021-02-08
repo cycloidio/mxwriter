@@ -3,15 +3,20 @@ package writer
 import (
 	"errors"
 	"io"
-	"sort"
 )
 
-var ErrNotMux = errors.New("io.Writer it's not of type mux")
+// ErrNotMux error returned when the ReadWriter is not *mux
+var ErrNotMux = errors.New("io.ReadWriter it's not of type mux")
 
+// Demux can be used to Demultiply the *mux
+// by reading specific keys or asking for the
+// list of keys
 type Demux struct {
 	mux *mux
 }
 
+// NewDemux returns an new Demux from the w, which has
+// to be a *mux implementation to work
 func NewDemux(w io.ReadWriter) (*Demux, error) {
 	mux, ok := w.(*mux)
 	if !ok {
@@ -23,18 +28,14 @@ func NewDemux(w io.ReadWriter) (*Demux, error) {
 	}, nil
 }
 
+// Keys returns the list of keys that
+// the internal mux has and can be read from
+// using the Read
 func (d *Demux) Keys() []string {
-	keys := make([]string, 0)
-
-	for k := range d.mux.buffers {
-		keys = append(keys, k)
-	}
-
-	sort.Strings(keys)
-
-	return keys
+	return d.mux.keys
 }
 
+// Read will return a io.Reader from the specific key
 func (d *Demux) Read(k string) io.Reader {
 	buff, ok := d.mux.buffers[k]
 	if !ok {

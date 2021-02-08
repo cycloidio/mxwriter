@@ -36,7 +36,7 @@ func TestMuxReadWrite(t *testing.T) {
 				[]byte("4;testcontent3"),
 				[]byte("1;acontent4"),
 			},
-			Result: []byte("content4content1content3content2"),
+			Result: []byte("content1content3content2content4"),
 		},
 	}
 

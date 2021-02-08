@@ -25,7 +25,7 @@ func TestNewDemux(t *testing.T) {
 }
 
 func TestDemuxKeys(t *testing.T) {
-	t.Run("Succes", func(t *testing.T) {
+	t.Run("Success", func(t *testing.T) {
 		m := writer.NewMux()
 		dm, err := writer.NewDemux(m)
 		require.NoError(t, err)
@@ -35,12 +35,12 @@ func TestDemuxKeys(t *testing.T) {
 		writer.Write(m, "key1", []byte("my-content"))
 		writer.Write(m, "key3", []byte("my-content3"))
 
-		assert.Equal(t, []string{"key1", "key2", "key3"}, dm.Keys())
+		assert.Equal(t, []string{"key2", "key1", "key3"}, dm.Keys())
 	})
 }
 
 func TestDemuxRead(t *testing.T) {
-	t.Run("Succes", func(t *testing.T) {
+	t.Run("Success", func(t *testing.T) {
 		m := writer.NewMux()
 		dm, err := writer.NewDemux(m)
 		require.NoError(t, err)
