@@ -1,14 +1,14 @@
-package writer_test
+package mxwriter_test
 
 import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/cycloidio/writer"
+	"github.com/cycloidio/mxwriter"
 )
 
 func BenchmarkMux(b *testing.B) {
-	m := writer.NewMux()
+	m := mxwriter.NewMux()
 
 	b.Run("Write", func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
@@ -26,18 +26,18 @@ func BenchmarkMux(b *testing.B) {
 }
 
 func BenchmarkWrite(b *testing.B) {
-	m := writer.NewMux()
+	m := mxwriter.NewMux()
 
 	for n := 0; n < b.N; n++ {
-		writer.Write(m, "test", []byte("content"))
-		writer.Write(m, "test1", []byte("content"))
-		writer.Write(m, "test2", []byte("content"))
+		mxwriter.Write(m, "test", []byte("content"))
+		mxwriter.Write(m, "test1", []byte("content"))
+		mxwriter.Write(m, "test2", []byte("content"))
 	}
 }
 
 func BenchmarkDemux(b *testing.B) {
-	m := writer.NewMux()
-	d, _ := writer.NewDemux(m)
+	m := mxwriter.NewMux()
+	d, _ := mxwriter.NewDemux(m)
 
 	b.Run("FillingData", func(b *testing.B) {
 		for n := 0; n < b.N; n++ {

@@ -1,17 +1,17 @@
-package writer_test
+package mxwriter_test
 
 import (
 	"io"
 	"io/ioutil"
 	"testing"
 
-	"github.com/cycloidio/writer"
+	"github.com/cycloidio/mxwriter"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestNewMux(t *testing.T) {
-	m := writer.NewMux()
+	m := mxwriter.NewMux()
 	assert.Implements(t, (*io.ReadWriter)(nil), m)
 }
 
@@ -42,7 +42,7 @@ func TestMuxReadWrite(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			m := writer.NewMux()
+			m := mxwriter.NewMux()
 			for _, b := range tt.Bytes {
 				i, err := m.Write(b)
 				require.NoError(t, err)
@@ -57,8 +57,8 @@ func TestMuxReadWrite(t *testing.T) {
 
 func TestWrite(t *testing.T) {
 	t.Run("Success", func(t *testing.T) {
-		m := writer.NewMux()
-		writer.Write(m, "key", []byte("content"))
+		m := mxwriter.NewMux()
+		mxwriter.Write(m, "key", []byte("content"))
 
 		b, err := ioutil.ReadAll(m)
 		require.NoError(t, err)

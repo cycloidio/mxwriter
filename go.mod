@@ -1,4 +1,4 @@
-module github.com/cycloidio/writer
+module github.com/cycloidio/mxwriter
 
 go 1.15
 

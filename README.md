@@ -1,6 +1,6 @@
-# Writer
+# MXWriter
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/cycloidio/writer)](https://pkg.go.dev/github.com/cycloidio/writer)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/cycloidio/mxwriter)](https://pkg.go.dev/github.com/cycloidio/mxwriter)
 
 Write is a small library that emulates a Multiplexer and Demultiplexer for `io.Write`.
 
@@ -14,14 +14,14 @@ The Use Case is when you only have 1 `io.Writer` and want to write different thi
 ## Install
 
 ```
-$> go get github.com/cycloidio/writer
+$> go get github.com/cycloidio/mxwriter
 ```
 
 ## Usage
 
-First initialize the `writer.NewMux()` and then you can use it as a normal `io.ReadWriter`. When
+First initialize the `mxwriter.NewMux()` and then you can use it as a normal `io.ReadWriter`. When
 you are writing information to it you have to do it in an specific way `<length-key>;<key><content>`.
-You can also use a helper `writer.Write(w io.Writer, key string, content []byte)` which will directly
+You can also use a helper `mxwriter.Write(w io.Writer, key string, content []byte)` which will directly
 write in the specific format.
 
 Example:
@@ -32,15 +32,15 @@ package example
 import (
 	"io/ioutil"
 
-	"github.com/cycloidio/writer"
+	"github.com/cycloidio/mxwriter"
 )
 
 func main() {
   // Initializes the Mux
-  m := writer.NewMux()
+  m := mxwriter.NewMux()
 
   // Initializes the Demux
-  dm, err := writer.NewDemux(m)
+  dm, err := mxwriter.NewDemux(m)
   if err != nil {
     log.Fatal(err)
   }
@@ -51,7 +51,7 @@ func main() {
   m.Write([]byte("4;testcontent"))
 
   // Write to the Mux with the helper
-  writer.Write(m, "test", []byte("content"))
+  mxwriter.Write(m, "test", []byte("content"))
 
   // If you want to read all of it
   b, _ := ioutil.ReadAll(m)
