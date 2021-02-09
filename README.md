@@ -2,7 +2,7 @@
 
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/cycloidio/mxwriter)](https://pkg.go.dev/github.com/cycloidio/mxwriter)
 
-Write is a small library that emulates a Multiplexer and Demultiplexer for `io.Write`.
+MXWriter is a small library that emulates a **Multiplexer** and **Demultiplexer** for `io.Write`.
 
 The main goal is to be able to use one `io.Writer` to write different content and then
 be able to read that content separately or all together without having to worry on the
