@@ -17,7 +17,7 @@ type Demux struct {
 
 // NewDemux returns an new Demux from the w, which has
 // to be a *mux implementation to work
-func NewDemux(w io.ReadWriter) (*Demux, error) {
+func NewDemux(w interface{}) (*Demux, error) {
 	mux, ok := w.(*mux)
 	if !ok {
 		return nil, ErrNotMux
