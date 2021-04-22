@@ -22,6 +22,7 @@ type mux struct {
 // and later on read them separately by key.
 // To read from an specific key use the NewDemux
 // function to get the Demux
+// NOTE: Not safe for concurrent use
 func NewMux() io.ReadWriter {
 	return &mux{
 		buffers: make(map[string]*bytes.Buffer),
