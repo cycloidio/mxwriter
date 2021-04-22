@@ -12,6 +12,7 @@ var ErrNotMux = errors.New("io.ReadWriter it's not of type mux")
 // Demux can be used to Demultiply the *mux
 // by reading specific keys or asking for the
 // list of keys
+// NOTE: Not safe for concurrent use
 type Demux struct {
 	mux *mux
 }
