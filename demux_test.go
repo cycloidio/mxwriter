@@ -49,20 +49,29 @@ func TestDemuxRead(t *testing.T) {
 		mxwriter.Write(m, "key2", []byte("my-content2"))
 		mxwriter.Write(m, "key1", []byte("my-content"))
 		mxwriter.Write(m, "key3", []byte("my-content3"))
+		mxwriter.Write(m, "key2", []byte("my-content2.1"))
 
 		ior := dm.Read("key1")
 		b, err := ioutil.ReadAll(ior)
 		require.NoError(t, err)
 		assert.Equal(t, []byte("my-content"), b)
+		assert.Equal(t, []string{"key2", "key3"}, dm.Keys())
 
 		ior = dm.Read("key2")
 		b, err = ioutil.ReadAll(ior)
 		require.NoError(t, err)
-		assert.Equal(t, []byte("my-content2"), b)
+		assert.Equal(t, []byte("my-content2my-content2.1"), b)
+		assert.Equal(t, []string{"key3"}, dm.Keys())
 
 		ior = dm.Read("key3")
 		b, err = ioutil.ReadAll(ior)
 		require.NoError(t, err)
 		assert.Equal(t, []byte("my-content3"), b)
+		assert.Equal(t, []string{}, dm.Keys())
+
+		ior = dm.Read("key1")
+		b, err = ioutil.ReadAll(ior)
+		require.NoError(t, err)
+		assert.Equal(t, []byte(""), b)
 	})
 }
