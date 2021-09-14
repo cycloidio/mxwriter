@@ -37,6 +37,22 @@ func TestDemuxKeys(t *testing.T) {
 
 		assert.Equal(t, []string{"key2", "key1", "key3"}, dm.Keys())
 	})
+	t.Run("SuccessWhenReadingKeys", func(t *testing.T) {
+		m := mxwriter.NewMux()
+		dm, err := mxwriter.NewDemux(m)
+		require.NoError(t, err)
+		assert.NotNil(t, dm)
+
+		mxwriter.Write(m, "key2", []byte("my-content2"))
+		mxwriter.Write(m, "key1", []byte("my-content"))
+		mxwriter.Write(m, "key3", []byte("my-content3"))
+
+		keys := []string{"key2", "key1", "key3"}
+		for i, k := range dm.Keys() {
+			assert.Equal(t, keys[i], k)
+			_ = dm.Read(k)
+		}
+	})
 }
 
 func TestDemuxRead(t *testing.T) {
