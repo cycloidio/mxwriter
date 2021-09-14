@@ -35,7 +35,11 @@ func NewDemux(w interface{}) (*Demux, error) {
 // the internal mux has and can be read from
 // using the Read
 func (d *Demux) Keys() []string {
-	return d.mux.keys
+	cp := make([]string, len(d.mux.keys))
+	for i, k := range d.mux.keys {
+		cp[i] = k
+	}
+	return cp
 }
 
 // Read will return a io.Reader from the specific key
